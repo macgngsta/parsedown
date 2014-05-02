@@ -703,17 +703,19 @@ class Parsedown
 
             # ~
 
-            $origTableElement='table';
-            if($this->isBootstrap){
-                $origTableElement .= 'class="table table-bordered table-striped"';
+            $additionalAttr=null;
+            if($this->isBootstrap)
+            {
+                $additionalAttr =array('class'=>'table table-bordered table-striped');
             }
 
             $Block = array(
                 'alignments' => $alignments,
                 'identified' => true,
                 'element' => array(
-                    'name' => $origTableElement,
-                    'handler' => 'elements'
+                    'name' => 'table',
+                    'handler' => 'elements',
+                    'attributes' =>  $additionalAttr
                 ),
             );
 
