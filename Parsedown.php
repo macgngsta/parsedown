@@ -23,7 +23,6 @@ class Parsedown
     # this, Parsedown tries to read in a similar way. It breaks texts into
     # lines, it iterates through them and it looks at how they start and relate
     # to each other.
-
     #
     # ~
 
@@ -55,6 +54,15 @@ class Parsedown
     }
 
     #
+    # Getters
+    #
+
+    public function isBootstrap() {
+        return $this->isBootstrap;
+    }
+   
+
+    #
     # Setters
     #
 
@@ -65,7 +73,12 @@ class Parsedown
         return $this;
     }
 
+    public function setIsBootstrap($x) {
+        $this->isBootstrap = $x;
+    }
+
     private $breaksEnabled;
+    protected $isBootstrap=false;
 
     #
     # Blocks
@@ -690,12 +703,17 @@ class Parsedown
 
             # ~
 
+            $origTableElement='table';
+            if($this->isBootstrap){
+                $origTableElement .= 'class="table table-bordered table-striped"';
+            }
+
             $Block = array(
                 'alignments' => $alignments,
                 'identified' => true,
                 'element' => array(
-                    'name' => 'table',
-                    'handler' => 'elements',
+                    'name' => $origTableElement,
+                    'handler' => 'elements'
                 ),
             );
 
